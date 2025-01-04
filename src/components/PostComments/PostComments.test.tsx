@@ -10,22 +10,18 @@ describe('Teste para o componente PostComment', () => {
     test('Deve adicionar dois comentarios', () => {
         render(<PostComment/>);
 
-        fireEvent.change(screen.getByTestId('comment-area'), { 
-            target: { 
-                value: 'Comentario aleatorio' 
-            } 
-        });
-        
-        fireEvent.click(screen.getByTestId('confirma-comment'));
+        const addComment = (text: string) => {
+            fireEvent.change(screen.getByTestId('comment-area'), { 
+                target: { 
+                    value: text
+                } 
+            });
+            
+            fireEvent.click(screen.getByTestId('confirma-comment'));
+        }
 
-
-        fireEvent.change(screen.getByTestId('comment-area'), { 
-            target: { 
-                value: 'Segundo Comentario aleatorio' 
-            } 
-        });        
-        
-        fireEvent.click(screen.getByTestId('confirma-comment'));
+        addComment('Primeiro comentario');
+        addComment('Segundo comentario');
 
         expect(screen.getAllByTestId('comments')).toHaveLength(2);
     });
